@@ -69,6 +69,16 @@
 }
 
 // Added by David
+- (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
+	NSInteger result = NSRunInformationalAlertPanel(NSLocalizedString(@"JavaScript", @""),  // title
+		message,                // message
+		NSLocalizedString(@"OK", @""),      // default button
+		NSLocalizedString(@"Cancel", @""),    // alt button
+		nil);
+	return NSAlertDefaultReturn == result;  
+}
+
+// Added by David
 - (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener {
 	NSOpenPanel *openDialog = [NSOpenPanel openPanel];
 	[openDialog setCanChooseFiles:YES];
