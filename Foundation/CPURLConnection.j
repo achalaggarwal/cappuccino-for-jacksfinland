@@ -244,7 +244,7 @@ var CPURLConnectionDelegate = nil;
         {
             if ([_delegate respondsToSelector:@selector(connection:didReceiveResponse:)])
             {
-                if (_isLocalFileConnection)
+                if (_isLocalFileConnection && [CPPlatform isBrowser])
                     [_delegate connection:self didReceiveResponse:[[CPURLResponse alloc] initWithURL:URL]];
                 else
                 {

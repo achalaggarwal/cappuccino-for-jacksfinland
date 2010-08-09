@@ -68,4 +68,30 @@
     [[NSAlert alertWithMessageText:title defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", aMessage, nil] runModal];
 }
 
+// Added by David
+- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener {
+	NSOpenPanel *openDialog = [NSOpenPanel openPanel];
+	[openDialog setCanChooseFiles:YES];
+	[openDialog setAllowsMultipleSelection:NO];
+	[openDialog setCanChooseDirectories:NO];
+	if ([openDialog runModalForDirectory:nil file:nil] == NSOKButton) {
+		[resultListener chooseFilename:[[openDialog filenames] objectAtIndex:0]];
+	}
+}
+
+// Added by David
+- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles {
+	NSOpenPanel *openDialog = [NSOpenPanel openPanel];
+	[openDialog setCanChooseFiles:YES];
+	[openDialog setAllowsMultipleSelection:NO];
+	[openDialog setCanChooseDirectories:NO];
+	if ([openDialog runModalForDirectory:nil file:nil] == NSOKButton) {
+		if (allowMultipleFiles && [resultListener respondsToSelector:@selector(chooseFilenames:)]) {
+			[resultListener performSelector:@selector(chooseFilenames:) withObject:[openDialog filenames]];
+		} else {
+			[resultListener chooseFilename:[[openDialog filenames] objectAtIndex:0]];
+		}
+	}
+}
+
 @end

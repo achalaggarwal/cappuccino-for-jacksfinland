@@ -66,10 +66,12 @@ CGEventRef headTapCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     DisabledWindows = [[NSMutableArray alloc] init];
 
     //| CGEventMaskBit(kCGEventTapDisabledByTimeout)
+/* Removed by David to fix click-to-activate bug after switching to two or more other applications
     tap_port = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap,
                                 kCGEventTapOptionDefault,
                                 CGEventMaskBit(kCGEventLeftMouseDown),
                                 headTapCallback, NULL);
+*/
 
     if (NULL == tap_port)
     {
